@@ -1,10 +1,12 @@
 import { HandPalm, Play } from "phosphor-react";
-import { CountDownContainer, FormContainer, HomeContainer, MinutesAmountInput, Separator, StartCountDownButton, TaskInput, StopCountDownButton } from "./styles";
+import { HomeContainer, StartCountDownButton, StopCountDownButton } from "./styles";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from 'zod'
 import { useEffect, useState } from "react";
 import { differenceInSeconds } from "date-fns";
+import { NewFormContainer } from "./Components/NewcycleForm";
+import { CountDown } from "./Components/CountDown";
 
 const newCycleFormValidationSchema = zod.object({
   task: zod.string().min(1, 'Informe a tarefa'),
@@ -114,25 +116,9 @@ export function Home() {
   return (
     <HomeContainer>
       <form onSubmit={handleSubmit(handleCreateNewcycle)} action="">
-        <FormContainer>
-          <label htmlFor="task">Vou trabalhar em</label>
-          <TaskInput disabled={!!activeCycle} list="task-suggestion" id="task" placeholder="Dê um nome para o seu projeto" {...register('task')} />
-          <datalist id="task-suggestion">
-            <option value="projeto 1" />
-            <option value="projeto 2" />
-            <option value="projeto 3" />
-          </datalist>
-          <label htmlFor="minutesAmount">durante</label>
-          <MinutesAmountInput disabled={!!activeCycle} step={5} min={1} max={60} id="minutesAmount" type="number" placeholder="00" {...register('minutesAmount', {valueAsNumber: true})} />
-          <span>Minutos.</span>
-        </FormContainer>
-        <CountDownContainer>
-          <span>{minutes[0]}</span>
-          <span>{minutes[1]}</span>
-          <Separator>:</Separator>
-          <span>{seconds[0]}</span>
-          <span>{seconds[1]}</span>
-        </CountDownContainer>
+        <NewFormContainer />
+        <CountDown />
+
         {
           activeCycle ? (
             <StopCountDownButton onClick={handleInterruptCycle} type="button"><HandPalm size={24} />Interromper</StopCountDownButton>
