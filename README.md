@@ -1,6 +1,6 @@
 # 🕒 Ignite-Timer
 
-A timer webpage built using **Vite**, **TypeScrip**.
+A timer webpage built using **Vite** and **TypeScrip**.
 
 ## Prerequisites
 
